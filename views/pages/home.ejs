@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include('../partials/head.ejs') %>
+
+</head>
+
+<body>
+  <header class="main-header">
+    <%- include('../partials/header.ejs') %>
+  </header>
+  <section class="container content-section">
+    <h2 class="section-header">Livres</h2>
+    <div class="shop-items">
+      <% if (books) { %>
+      <% books.forEach(book => { %>
+      <%- include('../partials/shop-item.ejs', { book }) %>
+      <% }) %>
+      <% }; %>
+    </div>
+  </section>
+  <footer class="main-footer">
+    <%- include('../partials/footer.ejs') %>
+  </footer>
+</body>
+
+</html>

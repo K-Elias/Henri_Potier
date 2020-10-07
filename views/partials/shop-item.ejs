@@ -1,0 +1,11 @@
+<div class="shop-item">
+  <span class="shop-item-title"><%= book.title %> </span>
+  <img class="shop-item-image" src=<%= book.cover %>>
+  <div class="shop-item-details">
+    <strong class="shop-item-price"><%= book.price %>€</strong>
+    <button class="btn btn-primary shop-item-button" id="<%= book.isbn %>"
+      type="button">
+      Ajouter au panier
+    </button>
+  </div>
+</div>
