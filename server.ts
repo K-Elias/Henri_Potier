@@ -1,9 +1,13 @@
 import express, { Application, Request, Response } from 'express';
 import { createServer } from 'http';
 import axios from 'axios';
+import compression from 'compression';
+import helmet from 'helmet';
 
 const app: Application = express();
-const PORT = 5000;
+const PORT: number = 5000;
+
+const bookApi: string = 'http://henri-potier.xebia.fr/books';
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -14,34 +18,18 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(helmet());
+app.use(compression());
 
-let bookList: Array<Book> = [];
-axios.get('http://henri-potier.xebia.fr/books').then(({ data }) => {
+let cart: Book[] = [];
+let bookList: Book[] = [];
+
+axios.get(bookApi).then(({ data }: { data: Book[] }) => {
   bookList = [...data];
-  return bookList;
 });
 
-let cart: Array<Book> = [];
-
-// const offerOperation = (offer) => {
-//   let result = [];
-//   if (offer.type === 'percentage') {
-//     result.push()
-//   } else if (offer.type === 'percentage') {
-
-//   } else if (offer.type === 'percentage') {
-
-//   }
-// }
-
 app.get('/', async (_, res: Response): Promise<void> => {
-  let newBookList: Array<Book> = [];
-  bookList.forEach((book: Book): void => {
-    if (cart.includes(book)) book = { ...book, isAdded: true };
-    else book = { ...book, isAdded: false };
-    newBookList.push(book);
-  });
-  res.render('pages/home', { books: newBookList });
+  res.render('pages/home', { books: bookList });
 });
 
 app.get('/about', (_, res: Response): void => {
@@ -49,14 +37,6 @@ app.get('/about', (_, res: Response): void => {
 });
 
 app.get('/cart', (_, res: Response): void => {
-  let offers: any = [];
-  if (cart.length > 0) {
-    const listBook = cart.map((book: Book) => book.isbn);
-    axios.get(`http://henri-potier.xebia.fr/books/{${listBook.join(',')}}/commercialOffers`)
-      .then(({ data: { offers } }) => {
-        console.log(offers)
-      });
-  }
   res.render('pages/cart', { books: cart });
 });
 

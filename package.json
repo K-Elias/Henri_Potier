@@ -22,10 +22,13 @@
   },
   "homepage": "https://github.com/K-Elias/Henri_Potier#readme",
   "dependencies": {
+    "@types/compression": "^1.7.0",
     "axios": "^0.20.0",
+    "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "helmet": "^4.1.1",
     "path": "^0.12.7"
   },
   "devDependencies": {

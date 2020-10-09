@@ -3,6 +3,11 @@ interface Book {
   title: string
   price: number
   cover: string
-  synopsis: Array<string>
-  isAdded?: boolean
+  synopsis: string[]
+}
+
+interface Offer {
+  type: string
+  value: number
+  sliceValue?: number
 }

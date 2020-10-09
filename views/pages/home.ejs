@@ -14,7 +14,7 @@
     <div class="shop-items">
       <% if (books) { %>
       <% books.forEach(book => { %>
-      <%- include('../partials/shop-item.ejs', { book, page: 'home' }) %>
+      <%- include('../partials/shop-item.ejs', { book }) %>
       <% }) %>
       <% } %>
     </div>
