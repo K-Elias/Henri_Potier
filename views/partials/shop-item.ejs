@@ -3,9 +3,18 @@
   <img class="shop-item-image" src=<%= book.cover %>>
   <div class="shop-item-details">
     <strong class="shop-item-price"><%= book.price %>€</strong>
+    <% if (page === 'home' && book.isAdded) { %>
+    <span class="added-item">Ajouté</span>
+    <% } else if (page === 'home' && !book.isAdded) { %>
     <button class="btn btn-primary shop-item-button" id="<%= book.isbn %>"
       type="button">
       Ajouter au panier
     </button>
+    <% } else if (page === 'cart') { %>
+    <button class="btn btn-primary shop-item-button" id="<%= book.isbn %>"
+      type="button">
+      Retirer du panier
+    </button>
+    <% }; %>
   </div>
 </div>

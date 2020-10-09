@@ -8,7 +8,7 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	min-height: 100%;
+	height: 100%;
 }
 
 .nav ul {
@@ -33,6 +33,27 @@ body {
 	border-bottom: 1px solid rgba(255, 255, 255, .3)
 }
 
+.payment-cart {
+	position: relative;
+	width: 100%;
+	margin-bottom: 40px;
+	height: 50px;
+}
+
+.payment-offer {
+	position: absolute;
+	left: 0;
+	bottom: 3px;
+}
+
+.payment-button {
+	position: absolute;
+	right: 0;
+	bottom: 3px;
+	border-radius: 6px;
+	font-weight: bold;
+}
+
 .main-nav li {
 	padding: 0 5%;
 }
@@ -49,6 +70,13 @@ body {
 	padding-bottom: 30px;
 }
 
+.added-item {
+	background-color: white;
+	color: green;
+	cursor: initial !important;
+	border: none;
+}
+
 .book-name {
 	text-align: center;
 	margin: 0;
@@ -62,7 +90,9 @@ body {
 }
 
 .content-section {
+	min-height: 100%;
 	margin: 1em;
+	text-align: center;
 }
 
 .container {
@@ -92,6 +122,7 @@ body {
 	color: white;
 	padding: .25em 0;
 	margin-top: 60px;
+	width: 100%;
 }
 
 .main-footer-container {
@@ -199,6 +230,19 @@ body {
 	width: 200px;
 }
 
+.shop-cart-button {
+	font-size: 17px;
+	margin: 0 auto;
+	background-color: white;
+	color: #98a0eb;
+	border: 3px solid #98a0eb;
+}
+
+.shop-cart-button:hover {
+	cursor: pointer;
+	background-color: whitesmoke;
+}
+
 .shop-item-title {
 	display: block;
 	width: 100%;
@@ -230,6 +274,11 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+}
+
+.shop-cart {
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .cart-header {

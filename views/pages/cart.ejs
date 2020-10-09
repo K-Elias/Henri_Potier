@@ -10,19 +10,24 @@
     <%- include('../partials/header.ejs') %>
   </header>
   <section class="container content-section">
-    <h2 class="section-header">Livres</h2>
-    <div class="shop-items">
+    <h2 class="section-header">Votre panier</h2>
+    <div class="payment-cart">
+      <div class="payment-offer">Offre:</div>
+      <button class="btn payment-button shop-cart-button">Passer la
+        commande</button>
+    </div>
+    <div class="shop-cart">
       <% if (books) { %>
       <% books.forEach(book => { %>
-      <%- include('../partials/shop-item.ejs', { book, page: 'home' }) %>
+      <%- include('../partials/shop-item.ejs', { book, page: 'cart' }) %>
       <% }) %>
-      <% } %>
+      <% }; %>
     </div>
   </section>
   <footer class="main-footer">
     <%- include('../partials/footer.ejs') %>
   </footer>
-  <script type='text/javascript' src="home.js" async></script>
+  <script type='text/javascript' src="cart.js" async></script>
 </body>
 
 </html>
