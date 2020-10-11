@@ -1,27 +1,25 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import { createServer } from 'http';
 import axios from 'axios';
 import compression from 'compression';
-import helmet from 'helmet';
 
 const app: Application = express();
 const PORT: number = 5000;
 
 const bookApi: string = 'http://henri-potier.xebia.fr/books';
 
+app.use(compression());
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true
   })
 );
-app.use(express.json());
-app.use(helmet());
-app.use(compression());
 
-let cart: Book[] = [];
+let cart: Cart[] = [];
 let bookList: Book[] = [];
 
 axios.get(bookApi).then(({ data }: { data: Book[] }) => {
@@ -40,21 +38,28 @@ app.get('/cart', (_, res: Response): void => {
   res.render('pages/cart', { books: cart });
 });
 
-app.get('/cartItem', (_, res: Response): void => {
-  res.send({ cart });
-  res.end();
+app.post('/cart', (req: Request, res: Response): void => {
+  if (!req.body) res.status(404).send('bad request');
+  const elem = cart.find((books: Cart) => books.book.isbn === req.body.book.isbn);
+  if (elem) {
+    elem.quantity += req.body.quantity;
+    elem.price += req.body.price;
+    res.status(201).send('success');
+  } else {
+    const newElem: Cart = {
+      book: req.body.book,
+      price: req.body.price,
+      quantity: req.body.quantity
+    }
+    cart.push(newElem);
+    res.status(201).send('success');
+  }
 });
 
-app.post('/:isbn', (req: Request): void => {
+app.get('/:isbn', (req: Request, res: Response): void => {
   const { isbn } = req.params;
-  let newElement: Book = bookList.find((book: Book) => book.isbn === isbn)!;
-  if (newElement) cart.push(newElement);
-});
-
-app.delete('/cartItem/:isbn', (req: Request, res: Response) => {
-  const { isbn } = req.params;
-  const newCart = cart.filter(book => book.isbn !== isbn);
-  cart = [...newCart];
+  let element: Book = bookList.find((book: Book) => book.isbn === isbn)!;
+  if (element) res.send({ book: element });
 });
 
 createServer(app).listen(PORT, (): void => (

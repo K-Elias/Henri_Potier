@@ -11,3 +11,9 @@ interface Offer {
   value: number
   sliceValue?: number
 }
+
+interface Cart {
+  book: Book
+  price: number
+  quantity: number
+}

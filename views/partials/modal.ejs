@@ -1,0 +1,42 @@
+<div id="modal" class="w3-modal">
+  <div class="w3-modal-content w3-card-4 w3-animate-zoom"
+    style="margin-bottom: 26px;">
+    <header class="w3-container w3-light-grey">
+      <span style="padding: 13px 19.5px;"
+        onclick="document.getElementById('modal').style.display='none'"
+        class="w3-button w3-light-grey w3-xlarge w3-display-topright">&times;</span>
+      <h2 id="book-title"></h2>
+    </header>
+
+    <div id="synopsis" class="w3-container" style="text-align: center;">
+      <img id="image-book" src="" alt="livre à acheter">
+      <section class="">
+        <div class="cart-row">
+          <div style="display: flex;">
+            <h3 style="margin-right: 5px;">Quantité</h3>
+            <div class="quantity">
+              <input type="number" min="1" max="9" step="1" value="1">
+              <div class="quantity-nav">
+                <div class="quantity-button quantity-up">+</div>
+                <div class="quantity-button quantity-down">-</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex;">
+            <h3>Prix</h3>
+            <span id="price"></span>
+          </div>
+          <button class="btn btn-primary shop-cart-button">Ajouter au
+            panier</button>
+        </div>
+      </section>
+      <h2>Synopsis</h2>
+      <div id="book-synopsis"></div>
+    </div>
+
+    <div class="w3-container w3-light-grey w3-padding">
+      <button id="btn-close" class="w3-button w3-right w3-white w3-border"
+        onclick="document.getElementById('modal').style.display='none'">Fermer</button>
+    </div>
+  </div>
+</div>
