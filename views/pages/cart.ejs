@@ -10,19 +10,23 @@
     <%- include('../partials/header.ejs') %>
   </header>
   <section class="container content-section">
-    <h2 class="section-header">Votre panier</h2>
-    <div class="payment-cart">
-      <div class="payment-offer">Offre:</div>
-      <button class="btn payment-button shop-cart-button">Passer la
-        commande</button>
+    <h2 class="section-header">VOTRE PANIER</h2>
+    <div class="cart-row" style="display: flex;">
+      <span class="cart-item cart-header cart-column">Vos produits</span>
+      <span class="cart-price cart-header cart-column">Prix</span>
+      <span class="cart-quantity cart-header cart-column">quantité</span>
     </div>
-    <div class="shop-cart">
-      <% if (books) { %>
-      <% books.forEach(book => { %>
-      <%- include('../partials/shop-item.ejs', { book, page: 'cart' }) %>
-      <% }) %>
-      <% }; %>
+    <div class="cart-items">
     </div>
+    <div class="cart-total">
+      <strong class="cart-total-title">Prix</strong>
+      <span class="cart-total-price"></span>
+    </div>
+    <div class="cart-total">
+      <strong class="cart-total-title">Prix avec réduction</strong>
+      <span class="cart-total-price offer"></span>
+    </div>
+    <button class="btn btn-primary btn-purchase" type="button">Payer</button>
   </section>
   <footer class="main-footer">
     <%- include('../partials/footer.ejs') %>

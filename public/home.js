@@ -1,3 +1,18 @@
+if (!localStorage.getItem('cart')) {
+  localStorage.setItem('cart', JSON.stringify([]));
+};
+
+const setCart = (newBook) => {
+  const getCart = JSON.parse(localStorage.getItem('cart'));
+  const getElem = getCart.find(cart => cart.book.title === newBook.book.title)
+  if (getElem) {
+    getElem.quantity = parseInt(getElem.quantity) + parseInt(newBook.quantity);
+    localStorage.setItem('cart', JSON.stringify(getCart));
+  } else {
+    localStorage.setItem('cart', JSON.stringify([...getCart, newBook]));
+  }
+};
+
 var bookData;
 const btn = document.getElementsByClassName('btn');
 for (let i = 0; i < btn.length; i++) {
@@ -11,7 +26,7 @@ for (let i = 0; i < btn.length; i++) {
     document.getElementById('modal').style.display = 'block';
     document.getElementById("price").textContent = book.price + "€";
   }
-}
+};
 
 const modal = document.getElementById('modal');
 window.onclick = function(event) {
@@ -54,24 +69,16 @@ btnShopCart.onclick = function() {
   const price = document.getElementById('price').textContent;
   const quantity = parseInt(document.querySelector('input[type="number"]').value);
   const intPrice = parseInt(price.slice(0, price.length - 1));
-  fetch('/cart', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ book: bookData, price: intPrice, quantity })
-  }).then(res => {
-    if (res.status === 201) {
-      modal.style.display = 'none'
-      const alert = document.querySelector('.alert');
-      alert.style.display = 'block';
-      const close = document.querySelector('.closebtn');
-      close.onclick = function() {
-        alert.style.opacity = '0';
-        setTimeout(function(){ alert.style.display = 'none'; }, 600);
-      }
-      setTimeout(function(){ alert.style.display = 'none'; }, 1200);
-    }
-  }).catch(err => console.error(err));
+  const newBook = { book: bookData, price: intPrice, quantity };
+  setCart({ book: bookData, price: intPrice, quantity });
+  modal.style.display = 'none'
+  const alert = document.querySelector('.alert');
+  alert.style.display = 'block';
+  const close = document.querySelector('.closebtn');
+  close.onclick = function() {
+    alert.style.opacity = '0';
+    setTimeout(function(){ alert.style.display = 'none'; }, 600);
+  }
+  document.querySelector('input[type="number"]').value = "1"
+  setTimeout(function(){ alert.style.display = 'none'; }, 1200);
 }

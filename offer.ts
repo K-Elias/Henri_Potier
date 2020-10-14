@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const offerApi = (listIsbn: string[]): string => (
-  `http://henri-potier.xebia.fr/books/{${listIsbn.join(',')}}/commercialOffers`
+  `http://henri-potier.xebia.fr/books/${listIsbn.join(',')}/commercialOffers`
 );
 
 const offerReducer = (totalPrice: number, offer: Offer, result: number[]): void => {
@@ -17,12 +17,12 @@ const offerReducer = (totalPrice: number, offer: Offer, result: number[]): void 
   };
 };
 
-export const offerOperation = async (cart: Book[]): Promise<number | null> => {
-  if (cart.length < 1) return null;
-  const totalPrice: number = cart.reduce((a: number, b: Book) => a + b.price, 0);
-  const cartIsbn: string[] = cart.map((book: Book) => book.isbn);
+export const offerOperation = async (cart: Cart[]): Promise<number> => {
+  if (cart.length < 1) return 0;
+  const totalPrice: number = cart.reduce((a: number, b: Cart) => a + b.price, 0);
+  const listIsbn: string[] = cart.map((book: Cart) => book.book.isbn);
   const { data: { offers } }: { data: { offers: Offer[] } } =
-    await axios.get(offerApi(cartIsbn));
+    await axios.get(offerApi(listIsbn));
   let result: number[] = [];
   offers.forEach((offer: Offer) => offerReducer(totalPrice, offer, result));
   return Math.min(...result);

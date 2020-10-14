@@ -77,6 +77,10 @@ body {
 	border: none;
 }
 
+.cart-content {
+	display: flex;
+}
+
 #book-synopsis {
 	text-align: left;
 	height: 204px;
@@ -362,9 +366,9 @@ body {
 	margin-right: 25px;
 }
 
-/* .cart-row:last-child {
+.cart-row:last-child {
 	border-bottom: 1px solid black;
-} */
+}
 
 .cart-row:last-child .cart-column {
 	border: none;
@@ -376,6 +380,11 @@ body {
 	margin-right: 10px;
 }
 
+.cart-total-price {
+	color: #333;
+	font-size: 28px;
+}
+
 .cart-total-title {
 	font-weight: bold;
 	font-size: 1.5em;
@@ -383,15 +392,12 @@ body {
 	margin-right: 20px;
 }
 
-.cart-total-price {
-	color: #333;
-	font-size: 1.1em;
-}
 
 .btn-purchase {
 	display: block;
 	margin: 40px auto 80px auto;
 	font-size: 1.75em;
+	padding: 8px 51px;
 }
 
 #synopsis {
@@ -487,7 +493,7 @@ input[type=number] {
 	opacity: 1;
 	transition: opacity 0.7s;
 	margin-bottom: 15px;
-	position: absolute;
+	position: fixed;
 	top: 42px;
 	right: 10px;
 }
