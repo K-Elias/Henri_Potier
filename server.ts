@@ -28,21 +28,27 @@ axios.get(bookApi).then(({ data }: { data: Book[] }): void => {
 });
 
 app.get('/', (_, res: Response): void => {
+  res.sendStatus(200);
   res.render('pages/home', { books: bookList });
 });
 
 app.get('/about', (_, res: Response): void => {
+  res.sendStatus(200);
   res.render('pages/about');
 });
 
 app.get('/cart', (_, res: Response): void => {
+  res.sendStatus(200);
   res.render('pages/cart');
 });
 
 app.post('/offer', async (req: Request, res: Response): Promise<void> => {
   if (req.body || req.body.length > 0) {
     const offer = await offerOperation(req.body);
+    res.sendStatus(200);
     res.json(offer);
+  } else {
+    res.sendStatus(404);
   }
 })
 
@@ -51,24 +57,6 @@ app.get('/:isbn', (req: Request, res: Response): void => {
   let element: Book = bookList.find((book: Book) => book.isbn === isbn)!;
   if (element) res.send({ book: element });
 });
-
-// app.post('/cart', (req: Request, res: Response): void => {
-//   if (!req.body) res.status(404).send('bad request');
-//   const elem = cart.find((books: Cart) => books.book.isbn === req.body.book.isbn);
-//   if (elem) {
-//     elem.quantity += req.body.quantity;
-//     elem.price += req.body.price;
-//     res.status(201).send('success');
-//   } else {
-//     const newElem: Cart = {
-//       book: req.body.book,
-//       price: req.body.price,
-//       quantity: req.body.quantity
-//     }
-//     cart.push(newElem);
-//     res.status(201).send('success');
-//   }
-// });
 
 createServer(app).listen(PORT, (): void => (
   console.log(`Server is running on http://localhost:${PORT}`)

@@ -2,15 +2,15 @@ const cartItems = document.querySelector('.cart-items');
 const getCart = JSON.parse(localStorage.getItem('cart'));
 for (let i = 0; i < getCart.length; i++) {
   let cartContent = document.createElement('div');
+  let cartItem = document.createElement('div');
+  let spanItem = document.createElement('span');
+  let quantityItem = document.createElement('div');
   cartContent.classList.add('cart-content');
   cartContent.id = `${i}`;
-  let cartItem = document.createElement('div');
   cartItem.classList.add('cart-item');
   cartItem.classList.add('cart-column');
-  let spanItem = document.createElement('span');
   spanItem.classList.add('cart-price');
   spanItem.classList.add('cart-column');
-  let quantityItem = document.createElement('div');
   quantityItem.classList.add('cart-quantity');
   quantityItem.classList.add('cart-column');
   cartItem.innerHTML = `
@@ -43,7 +43,10 @@ const PriceOpp = () => {
     },
     body: getCart
   }).then(res => res.json()).then(res => {
+    if (!res || res === {}) offer.textContent = "pas de réduction"
     offer.textContent = res + '€';
+  }).catch(err => {
+    offer.textContent = "pas de réduction"
   });
 }
 
