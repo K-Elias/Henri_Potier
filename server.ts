@@ -28,24 +28,20 @@ axios.get(bookApi).then(({ data }: { data: Book[] }): void => {
 });
 
 app.get('/', (_, res: Response): void => {
-  res.sendStatus(200);
   res.render('pages/home', { books: bookList });
 });
 
 app.get('/about', (_, res: Response): void => {
-  res.sendStatus(200);
   res.render('pages/about');
 });
 
 app.get('/cart', (_, res: Response): void => {
-  res.sendStatus(200);
   res.render('pages/cart');
 });
 
 app.post('/offer', async (req: Request, res: Response): Promise<void> => {
   if (req.body || req.body.length > 0) {
     const offer = await offerOperation(req.body);
-    res.sendStatus(200);
     res.json(offer);
   } else {
     res.sendStatus(404);
